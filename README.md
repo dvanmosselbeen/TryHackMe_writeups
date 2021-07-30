@@ -6,7 +6,7 @@ Check out the TryHackMe website for your subscription!
 
 https://tryhackme.com/
 
-[![TryHackMe Profile](https://tryhackme-badges.s3.amazonaws.com/itchy.png)](https://tryhackme.com/p/itchy)
+[![TryHackMe Profile](itchy.png)](https://tryhackme.com/p/itchy)
 
 ## TryHackMe writeups
 
