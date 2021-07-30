@@ -12,3 +12,4 @@ https://tryhackme.com/
 
 * [THM - Basic Pentesting](basic_pentesting/README.md) - Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.
 * [THM - hydra](hydra/README.md) - Hydra is the ultimate tool for online password attacks.
+* [THM - Brooklyn Nine Nine](brooklyn-nine-nine/README.md) - Hack that box! 
