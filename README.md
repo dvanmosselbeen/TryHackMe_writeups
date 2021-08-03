@@ -10,6 +10,7 @@ https://tryhackme.com/
 
 ## TryHackMe writeups
 
+* [THM - Agent Sudo](agent-sudo/README.md) - Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation.
 * [THM - Wireshark 101](wireshark-101/README.md) - The Wireshark 101 Writeup
 * [THM - Basic Pentesting](basic_pentesting/README.md) - Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.
 * [THM - hydra](hydra/README.md) - Hydra is the ultimate tool for online password attacks.
