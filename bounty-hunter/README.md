@@ -14,6 +14,7 @@ This is a very easy room. The final goal can be achieved in a very very very sho
 
 - [Living up to the title](#living-up-to-the-title)
   - [Answer the questions below](#answer-the-questions-below)
+- [Tools Used](#tools-used)
 - [Enumerating](#enumerating)
 - [Logging into the ftp server](#logging-into-the-ftp-server)
 - [Brute forcing the user accounts](#brute-forcing-the-user-accounts)
