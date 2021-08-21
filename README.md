@@ -10,6 +10,7 @@ https://tryhackme.com/
 
 ## TryHackMe writeups
 
+- [THM - Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) - You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
 - [THM - Startup](startup/README.md) - Abuse traditional vulnerabilities via untraditional means.
 - [THM - Blue](blue/README.md) - Hacking: Enumerating the Eternal blue vulnerability [CVE-2017-0143](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143) with `nmap` and making (bad) use of it with `metasploit`. Finally, dumping and cracking the password hash of a user.
 - [THM - Agent Sudo](agent-sudo/README.md) - Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation.
