@@ -20,6 +20,17 @@ If you have any issues / queries you can reach us through [Discord](https://disc
 
 **WARNING: I stripped out the answers. By following and doing the steps described here by yourself you will get them all! It's all about the fun, the excitement to achieve the end goal. This all by doing and learning from it.**
 
+## Table of Contents
+
+- [Answer the questions below](#answer-the-questions-below)
+- [Tools Used](#tools-used)
+- [Enumeration](#enumeration)
+- [Fetching unexpected things](#fetching-unexpected-things)
+- [Looking at the FTP server](#looking-at-the-ftp-server)
+- [Looking at the web server](#looking-at-the-web-server)
+- [Login with SSH](#login-with-ssh)
+- [Privilege Escalation](#privilege-escalation)
+
 ## Answer the questions below
 
 Enter the key you found!
@@ -48,7 +59,7 @@ Enter the root flag
 - john
 - And a few basic GNU / Linux commands. Nothing fancy.
 
-## Writeup
+## Enumeration
 
 a little explanation on the little setup and how I work:
 
@@ -87,6 +98,8 @@ And here is [the output of the nmap scan](files/nmap_scan). Too messy to show he
 - `119/tcp` open - nntp?
 - `125/tcp` open - locus-map?
 
+## Fetching unexpected things
+
 It is always very important to read the output. Not only the different messages `small hint from Mr.Wonka : Look somewhere else, its not here! ;)`. So, if we should trust `Mr.Wonka` we should not look on ports `100`, `106`, `109`, `110`, `111`, `113`; `119`, `125`. But not only that, we saw the following line, just bellow the information of port `113`: `http://localhost/***_***_*** <- You will find the key here!!!`. 
 
 So of course, we grab this file:
@@ -120,6 +133,8 @@ GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
 _Note that I stripped out the useful data._
 
 With this information, we can already answer to one of the questions of the challenge. For the rest, no idea if this file is of any use. Let's keep it!
+
+## Looking at the FTP server
 
 Time to look on the `ftp` server, which allows anonymous login.
 
@@ -345,6 +360,8 @@ _Note that I stripped out the useful data. See the 6 asterisks._
 
 We can answer another question of this challenge by now :)
 
+## Looking at the web server
+
 It's time to move on. Looking at the website, we have a login form.
 
 ![alt text](files/website_01.png "Website screenshot")
@@ -382,6 +399,8 @@ $ chmod 600 teleport
 **IMPORTANT NOTE: Had to fix the `teleport` file by hand. I have no idea why this was so, and I didn't look up back the origin of this issue. Bad copy and paste skill, or due to the output of the web server. Anyway, when trying to `ssh` to the box, I received the message `Load key "teleport": invalid format`. I saw there was some extra spaces which I deleted by hand. I let you fix that yourself, so no copy and paste this time. I'm quite, kind, so I show the end result here:**
 
 ![alt text](files/teleport.png "Website screenshot")
+
+## Login with SSH
 
 So finally connecting to the target box with `ssh` and grabbing the `user.txt`.
 
@@ -438,6 +457,8 @@ flag{cd*****42371b34e4826e4838*****2e}
 ````
 
 I'm a bit surprised that the key is been at that location and now have output some data. While it did not want to do that on that web interface. Mr. Wonka played with us!
+
+## Privilege Escalation
 
 Now need to escalate our privileges. First look and hit it!
 
