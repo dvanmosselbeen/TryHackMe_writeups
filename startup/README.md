@@ -1,13 +1,15 @@
 # TryHackMe Writeup - Startup
 
-This is a full detailed writeup, with a few bonus sections and for some sections different techniques to achieve the same goal. This one is really not complicated but request to do some researches on the target machine. Then you probably also need to dig deeper in what the opportunities are. Really a nice one!
+Abuse traditional vulnerabilities via untraditional means.
+
+TryHackMe room: <https://tryhackme.com/room/startup>
+
+This is a detailed writeup, with a few bonus sections and for some sections different techniques to achieve the same goal. This one is really not complicated but request to do some researches on the target machine. Then you probably also need to dig deeper in what the opportunities are. Really a nice one!
 
 Sharing is caring (TM) <br> 
 Enjoy!
 
-_NB. I stripped out passwords and CTF flags. Sorry_
-
-- Check out the [Startup](https://tryhackme.com/room/startup) TryHackMe Room
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
 
 OTHER BONUS:
 
@@ -52,7 +54,7 @@ We are Spice Hut, a new startup company that just made it big! We offer a variet
 - `nc` - To make magic connections between computers.
 - `curl` - To fetch / activate files.
 - `python` - Ran `python -m SimpleHTTPServer 8080` to rock like a Pro Python programmer :-D
-- `Wireshark` - To lose my time and to break my head for nothing, for once.
+- `wireshark` - To lose my time and to break my head for nothing, for once.
 - `strings` - To actually do the job of `Wireshark` and read the pcap file to find out the flying password.
 - `pspy` - unprivileged Linux process snooping. A script [from here](https://github.com/DominicBreuker/pspy).
 - `linpease` - But this script couldn't help me today. A script [from here](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS).

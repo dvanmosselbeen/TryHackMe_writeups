@@ -1,14 +1,14 @@
-# Lazy Admin
+# Try Hack Me Writeup - Lazy Admin
 
 Easy linux machine to practice your skills
 
-The room is here: <https://tryhackme.com/room/lazyadmin>
+TryHackMe room: <https://tryhackme.com/room/lazyadmin>
 
 ![alt text](images/writeup-image.png "Web Server")
 
 _Fancy imagination of Itchy - All rights reserved._
 
-**WARNING: I stripped out the answers. By following and doing the steps described here by yourself you will get them all!**
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
 
 ## Table of Contents
 

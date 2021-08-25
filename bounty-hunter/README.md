@@ -1,8 +1,8 @@
 # Bounty Hunter (Cowboy Hacker)
 
-THM Room: <https://tryhackme.com/room/cowboyhacker>
-
 You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
+
+TryHackMe Room: <https://tryhackme.com/room/cowboyhacker>
 
 ![alt text](images/crew.jpg "Crew")
 
@@ -49,8 +49,8 @@ root.txt
 
 ## Tools Used
 
-- nmap - To enumerate the server ports & services.
-- hydra - To brute force the ssh & ftp server.
+- `nmap` - To enumerate the server ports & services.
+- `hydra` - To brute force the ssh & ftp server.
 - A few basic GNU / Linux commands - Nothing fancy at all.
 
 ## Enumerating
