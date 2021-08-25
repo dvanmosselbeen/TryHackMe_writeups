@@ -10,16 +10,18 @@ https://tryhackme.com/
 
 ## TryHackMe writeups
 
-- [THM - Chocolate Factory](chocolatefactory/README.md) - A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory!
-- [THM - Lazy Admin](laszy-admin) - Easy linux machine to practice your skills.
-- [THM - Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) - You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
-- [THM - Startup](startup/README.md) - Abuse traditional vulnerabilities via untraditional means.
-- [THM - Blue](blue/README.md) - Hacking: Enumerating the Eternal blue vulnerability [CVE-2017-0143](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143) with `nmap` and making (bad) use of it with `metasploit`. Finally, dumping and cracking the password hash of a user.
-- [THM - Agent Sudo](agent-sudo/README.md) - Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation.
-- [THM - Wireshark 101](wireshark-101/README.md) - The Wireshark 101 Writeup
-- [THM - Basic Pentesting](basic_pentesting/README.md) - Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.
-- [THM - hydra](hydra/README.md) - Hydra is the ultimate tool for online password attacks.
-- [THM - Brooklyn Nine Nine](brooklyn-nine-nine/README.md) - Hack that box!
+| Room Name | Description | Tools Used |
+|---|---|---|
+| [Chocolate Factory](chocolatefactory/README.md) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
+| [Lazy Admin](laszy-admin) | Easy linux machine to practice your skills. | `nmap`, `gobuster`, `webshell`, `nc` |
+| [Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) | You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker! | `nmap`, `hydra` |
+| [Startup](startup/README.md) | Abuse traditional vulnerabilities via untraditional means. | `nmap`, `gobuster`, `ftp`, `nc`, `curl`, `python`, `wireshark`, `strings`, `pspy`, `linpeas` |
+| [Blue](blue/README.md) | Hacking: Enumerating the Eternal blue vulnerability [CVE-2017-0143](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143) with `nmap` and making (bad) use of it with `metasploit`. Finally, dumping and cracking the password hash of a user. | `nmap`, `metasploit`, `john` |
+| [Agent Sudo](agent-sudo/README.md) | Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation. | `nmap`, `gobuster`, `Burp Suite`, `FoxyProxy`, `User-Agent Switcher and Manager`, `hydra`, `steghide`, `binwalk``binwalk`, `john`, `zip2john` |
+| [Wireshark 101](wireshark-101/README.md) | The Wireshark 101 Writeup. | `wireshark` |
+| [Basic Pentesting](basic_pentesting/README.md) | Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.  | `nmap`, `gobuster`, `enum4linux`, `hydra`, `linpeas`, `john` |
+| [Hydra](hydra/README.md) | Hydra is the ultimate tool for online password attacks. | `hydra` |
+| [Brooklyn Nine Nine](brooklyn-nine-nine/README.md) | Hack that box! | `nmap`, `ftp`, `hydra`, `linpeas` |
 
 ## Extra Notes
 
