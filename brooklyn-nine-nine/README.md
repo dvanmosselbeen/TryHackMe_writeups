@@ -1,28 +1,51 @@
 # Try Hack Me Writeup - Brooklyn Nine Nine
 
-THM Brooklyn Nine Nine room: https://tryhackme.com/room/brooklynninenine
+TryHackMe room: https://tryhackme.com/room/brooklynninenine
 
-## Task 1
+This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.
+
+![alt text](images/brooklyn99.jpg "The Crew")
+
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
+
+## Table of Contents
+
+- [Tools Used](#tools-used)
+- [Tasks](#tasks)
+- [Port and Service enumeration](#port-and-service-enumeration)
+- [Looking at the FTP server](#looking-at-the-ftp-server)
+- [Looking at the webserver](#looking-at-the-webserver)
+- [Brute forcing the SSH server](#brute-forcing-the-ssh-server)
+- [Privilege escalation](#privilege-escalation)
+- [Todo](#todo)
+
+## Tools Used
+
+- `nmap`
+- `ftp`
+- `hydra`
+- `linpeas`
+
+## Tasks
 
 This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box. If you find more dm me in discord at Fsociety2006.
 
-## User flag
+User flag
 
-    ee11cbb19052e40b07aac0ca060c23ee
+    ee*****19052e40b07aac0ca0*****ee
 
-## Root flog
+Root flog
 
-    63a9f0ea7bb98050796b649e85481845
+    63*****a7bb98050796b649e8*****45
 
-## Writeup
+## Port and Service enumeration
 
 We don't have a lot of information about the tasks, except to get a `user` and a `root` flag. So we will have to do a good job at information gathering before trying to kick out all doors like a big pig.
 
 Let's start with a `nmap` scan:
 
-```
-┌──(root💀vm-dsktp-kali)-[~]
-└─# nmap -p- -A 10.10.15.48
+```commandline
+# nmap -p- -A 10.10.15.48
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-07-30 22:26 CEST
 Nmap scan report for 10.10.15.48
 Host is up (0.030s latency).
@@ -79,6 +102,8 @@ Nmap done: 1 IP address (1 host up) scanned in 42.35 seconds
 
 3 nice services are running, `FTP`, `SSH` and `HTTP` running on a Linux (Ubuntu).
 
+## Looking at the FTP server
+
 So, it's clear, we need to check out that file on the `ftp` server as anonymous `ftp` logins are allowed and that `note_to_jake.txt` is readable by everyone. As well as give a look to the webserver. The `ssh` server I will try to slam him later on with some bruteforce dictionary attack. This is usually very easy to do with a bruteforce dictionary attack if the server isn't protected and if we are lacking password policies. 
 
 We maybe have already `jake` as username. I could try already to bruteforce the ssh server. But still not. We need to gather more information first. Who know I got banned if I want to go too fast.
@@ -86,8 +111,7 @@ We maybe have already `jake` as username. I could try already to bruteforce the 
 Let's handle that ftp server first:
 
 ```commandline
-┌──(root💀vm-dsktp-kali)-[~]
-└─# ftp 10.10.15.48
+$ ftp 10.10.15.48
 Connected to 10.10.15.48.
 220 (vsFTPd 3.0.3)
 Name (10.10.15.48:itchy): 
@@ -120,8 +144,7 @@ ftp> exit
 So I logged in like show, then only have passed to user `anonymous`. What is not clear here is the blanc password. Just pressed enter as anonymous login is allowed. We just need to log in with `anonymous` and that's a point to keep in mind. Then I have downloaded (get) the `note_to_jake.txt` file.
 
 ```commandline
-┌──(root💀vm-dsktp-kali)-[~]
-└─# cat note_to_jake.txt 
+$ cat note_to_jake.txt 
 From Amy,
 
 Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
@@ -129,13 +152,15 @@ Jake please change your password. It is too weak and holt will be mad if someone
 
 A message from user `Amy`, so this confirm that `Jake` is a username and probably `holt` can be too. My english is maybe bad, but the word `holt` doesn't tell me something. But you never know with their street language.
 
+## Looking at the webserver
+
 Let's take a closer look to the webserver.
 
 ![alt text](images/THM-brooklyn-nine-nine-01.png "Webserver Screenshot")
 
 I can confirm that the image resize, it was a bit annoying to get around it for my screenshot :-D
 
-Looking to the source code, not interested in the css code, but other tricks, revealed me this nice information `<!-- Have you ever heard of steganography? -->`
+Looking to the source code, not interested in the `css` code, but other tricks, revealed me this nice information `<!-- Have you ever heard of steganography? -->`
 
 ![alt text](images/THM-brooklyn-nine-nine-02.png "Webserver Screenshot")
 
@@ -143,7 +168,9 @@ I wonder why they didn't use a nice fat high-res png file. I could have used tha
 
 ![alt text](images/brooklyn99.jpg "Webserver Screenshot")
 
-I tried to look around on how to extract the hidden data into that picture, but I'm clueless. I don't know which app they used and what encryption and passphrase they used, let alone all the technical things behind it. No time to play around for maybe nothing. I also found this website https://stylesuxx.github.io/steganography/ to encode and decode but once decoded, even the chinese language would be easier to understand. I guess they are trying to get fun on my face. So I put this on hold as I maybe need a hint or gather more information.
+I tried to look around on how to extract the hidden data into that picture, but I'm clueless. I don't know which app they used and what encryption and passphrase they used, let alone all the technical things behind it. No time to play around for maybe nothing. I also found this website <https://stylesuxx.github.io/steganography/> to encode and decode but once decoded, even the chinese language would be easier to understand. I guess they are trying to get fun on my face. So I put this on hold as I maybe need a hint or gather more information.
+
+## Brute forcing the SSH server
 
 Let's look about that ssh server first.
 
@@ -154,7 +181,7 @@ hydra -l jake -P /usr/share/wordlists/rockyou.txt 10.10.15.48 ssh -V -I
 I did not even have had the time to scratch my butt that the password was cracked. Nice job `Jake`, pardon, `hydra`.
 
 ```commandline
-[22][ssh] host: 10.10.15.48   login: jake   password: 987654321
+[22][ssh] host: 10.10.15.48   login: jake   password: *********
 ```
 
 Let's try to login on the ssh server
@@ -184,26 +211,28 @@ Did not found anything interesting in `amy's` and `jakes's` home folder. Except 
 
 ```commandline
 jake@brookly_nine_nine:/home/holt$ cat user.txt 
-ee11cbb19052e40b07aac0ca060c23ee
+ee*****19052e40b07aac0ca0*****ee
 ```
 
 So here we go for the `user` flag :-P
 
-A quick and dirty and useless abuse of https://crackstation.net tells that the result of this hash is `user`. But why should I bother in fact :-D Still, this can be a hint too.
+A quick and dirty and useless abuse of <https://crackstation.net> tells that the result of this hash is `user`. But why should I bother in fact :-D Still, this can be a hint too.
+
+## Privilege escalation
 
 I looked around but I did not find something else. I need better eyes, so I want to make use of the `linepaes` tool. As there is no internet on that virtual machine (technical issue with internet on these vm's while there is supposed to be internet... Go figure it out), I have to tackle this differently and `scp` it from my `kali` machine. But then I leave extra traces this way.
 
 So from my `kali` machine:
 
-    scp /home/itchy/Downloads/linpeas.sh jake@10.10.15.48:/tmp/
+```commandline
+$ scp /home/itchy/Downloads/linpeas.sh jake@10.10.15.48:/tmp/
+```
 
-Back on the victims machine:
+Back on the victims machine we launch `linpeas` and pipe it to tee to log everything in a temp file.
 
 ```commandline
-chmod +x /tmp/linpeas.sh
-# Write log output to some location where I have rights and when it will fly 
-# away after reboot. In case I forget to delete the log.
-/tmp/linpeas.sh | tee /tmp/linpeas.log
+$ chmod +x /tmp/linpeas.sh
+$ /tmp/linpeas.sh | tee /tmp/linpeas.log
 ```
 
 Saw immediately that in the terminal output of `linepeas` that `Sudo version 1.8.21p2` is installed, a very good version for privilege escalation :-D
