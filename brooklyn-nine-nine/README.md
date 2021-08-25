@@ -220,7 +220,7 @@ A quick and dirty and useless abuse of <https://crackstation.net> tells that the
 
 ## Privilege escalation
 
-I looked around but I did not find something else. I need better eyes, so I want to make use of the `linepaes` tool. As there is no internet on that virtual machine (technical issue with internet on these vm's while there is supposed to be internet... Go figure it out), I have to tackle this differently and `scp` it from my `kali` machine. But then I leave extra traces this way.
+I looked around, but I did not find something else. I need better eyes, so I want to make use of the `linepaes` tool. As there is no internet on that virtual machine (technical issue with internet on these vm's while there is supposed to be internet... Go figure it out), I have to tackle this differently and `scp` it from my `kali` machine. But then I leave extra traces this way.
 
 So from my `kali` machine:
 
@@ -284,7 +284,7 @@ drwx------  2 root root 4.0K May 18  2020 .ssh
 # cat /root/root.txt
 -- Creator : Fsociety2006 --
 Congratulations in rooting Brooklyn Nine Nine
-Here is the flag: 63a9f0ea7bb98050796b649e85481845
+Here is the flag: 63*****a7bb98050796b649e8*****45
 
 Enjoy!!
 # uname -a
@@ -297,5 +297,5 @@ Voila voila! We got the 2 flags!
 
 For later on because it's very late now :-|
 
-* Apparently there are 2 ways to get root access. Need to find the other one.
-* Investigate on that image. I guess they have put something funny into ito no? We are all monkeys after all.
+- Apparently there are 2 ways to get root access. Need to find the other one.
+- Investigate on that image. I guess they have put something funny into ito no? We are all monkeys after all.
