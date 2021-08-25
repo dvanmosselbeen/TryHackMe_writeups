@@ -1,9 +1,34 @@
-
 # Try Hack Me Writeup - Hydra
 
-THM Room is here: https://tryhackme.com/room/hydra
+THM Room is here: <https://tryhackme.com/room/hydra>
+
+![alt text](images/writeup-image.png "Hydra commands Screenshot")
 
 This writeup of the hydra room is fully detailed with screenshots, as this is so fun to do. I found it also funny to document the whole process. With some extra information you wouldn't find in the other writeup's or even the walk through YouTube video on top of this room.
+
+**WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
+
+## Table of Contents
+
+- [Tools Used](#tools-used)
+- [Task 1 - Hydra Introduction](#task-1---hydra-introduction)
+- [Task 2 - Using Hydra](#task-2---using-hydra)
+  - [Hydra Commands](#hydra-commands)
+  - [SSH](#ssh)
+  - [Post Web Form](#post-web-form)
+- [Enumeration port and services](#enumeration-port-and-services)
+- [Wappalyzer](#wappalyzer)
+- [FoxyProxy and BurpSuite](#foxyproxy-and-burpsuite)
+- [Brute forcing with Hydra](#brute-forcing-with-hydra)
+  - [Brute forcing the web app](#brute-forcing-the-web-app)
+  - [Brute forcing the SSH server](#brute-forcing-the-ssh-server)
+
+## Tools Used
+
+- `hydra`
+- `wappalyzer`
+- `FoxyProxy` + Detailed the setup
+- `Burp Suite` + Detailed the setup
 
 ## Task 1 - Hydra Introduction
 
@@ -11,16 +36,16 @@ Hydra is a brute force online password cracking program; a quick system login pa
 
 We can use Hydra to run through a list and 'bruteforce' some authentication service. Imagine trying to manually guess someones password on a particular service (SSH, Web Application Form, FTP or SNMP) - we can use Hydra to run through a password list and speed this process up for us, determining the correct password.
 
-Hydra has the ability to bruteforce the following protocols: Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP,  HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-POST, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTPS-POST, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, RTSP, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP v1+v2+v3, SOCKS5, SSH (v1 and v2), SSHKEY, Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC and XMPP.
+Hydra has the ability to bruteforce the following protocols: `Asterisk`, `AFP`, `Cisco AAA`, `Cisco auth`, `Cisco enable`, `CVS`, `Firebird`, `FTP`,  `HTTP-FORM-GET`, `HTTP-FORM-POST`, `HTTP-GET`, `HTTP-HEAD`, `HTTP-POST`, `HTTP-PROXY`, `HTTPS-FORM-GET`, `HTTPS-FORM-POST`, `HTTPS-GET`, `HTTPS-HEAD`, `HTTPS-POST`, `HTTP-Proxy`, `ICQ`, `IMAP`, `IRC`, `LDAP`, `MS-SQL`, `MYSQL`, `NCP`, `NNTP`, `Oracle Listener`, `Oracle SID`, `Oracle`, `PC-Anywhere`, `PCNFS`, `POP3`, `POSTGRES`, `RDP`, `Rexec`, `Rlogin`, `Rsh`, `RTSP`, `SAP/R3`, `SIP`, `SMB`, `SMTP`, `SMTP` `Enum`, `SNMP` v1+v2+v3, `SOCKS5`, `SSH` (v1 and v2), `SSHKEY`, `Subversion`, `Teamspeak` (TS2), `Telnet`, `VMware-Auth`, `VNC` and `XMPP`.
 
-For more information on the options of each protocol in Hydra, read the official Kali Hydra tool page: https://en.kali.tools/?p=220
+For more information on the options of each protocol in Hydra, read the official Kali Hydra tool page: <https://en.kali.tools/?p=220>
 
-This shows the importance of using a strong password, if your password is common, doesn't contain special characters and/or is not above 8 characters, its going to be prone to being guessed. 100 million password lists exist containing common passwords, so when an out-of-the-box application uses an easy password to login, make sure to change it from the default! Often CCTV camera's and web frameworks use admin:password as the default password, which is obviously not strong enough.
+This shows the importance of using a strong password, if your password is common, doesn't contain special characters and/or is not above 8 characters, its going to be prone to being guessed. 100 million password lists exist containing common passwords, so when an out-of-the-box application uses an easy password to login, make sure to change it from the default! Often CCTV camera's and web frameworks use `admin`:`password` as the default password, which is obviously not strong enough.
 
 Installing Hydra
-If you're using Kali Linux, hydra is pre-installed. Otherwise you can download it here: https://github.com/vanhauser-thc/thc-hydra
+If you're using Kali Linux, hydra is pre-installed. Otherwise you can download it here: <https://github.com/vanhauser-thc/thc-hydra>
 
-If you don't have Linux or the right desktop environment, you can deploy your own Kali Linux machine with all the needed security tools. You can even control the machine in your browser! Do this with our Kali room - https://tryhackme.com/room/kali
+If you don't have Linux or the right desktop environment, you can deploy your own Kali Linux machine with all the needed security tools. You can even control the machine in your browser! Do this with our Kali room - <https://tryhackme.com/room/kali>
 
 ### Read the above and have Hydra at the ready
 
@@ -68,23 +93,18 @@ You should now have enough information to put this to practise and brute-force y
 
 #### Use Hydra to bruteforce molly's web password. What is flag 1? 
 
-    THM{2673a7dd116de68e85c48ec0b1f2612e}
+    THM{26*****d116de68e85c48ec0b*****2e}
 
 #### Use Hydra to bruteforce molly's SSH password. What is flag 2?
 
-    THM{c8eeb0468febbadea859baeb33b2541b}
+    THM{c8*****68febbadea859baeb3*****1b}
 
-## My Information Gathering and Attacks
-
-So I booted up that virtual machine. And like requested I browsed to that web server which present a login screen.
-
-![alt text](images/THM_writeup_hydra_003.png "Webserver login Screenshot")
+## Enumeration port and services
 
 The first thing to do is to look up what services are running on that machine. To be sure we have a good view of what's going on. So I ran a `nmap` scan on all ports with OS information gathering and which resulted into this:
 
 ```commandline
-┌──(root💀vm-dsktp-kali)-[/home/itchy]
-└─# nmap -p- -A 10.10.180.225
+# nmap -p- -A 10.10.180.225
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-07-30 17:46 CEST
 Nmap scan report for 10.10.180.225
 Host is up (0.034s latency).
@@ -123,13 +143,19 @@ OS and Service detection performed. Please report any incorrect results at https
 Nmap done: 1 IP address (1 host up) scanned in 40.33 seconds
 ```
 
-**_It's always good to do a nmap scan on these virtual machine in TryHackMe. Because my first scan didn't show the ssh server. Sometimes, it takes quick a few minutes before all services are up and running. This can lead to confession. So do not hesitate to launch a second scan. Everything (almost) is permitted here anyway in this test LAB_**
+**_It's always good to do a `nmap` scan on these virtual machine in `TryHackMe`. Because my first scan didn't show the `ssh` server. Sometimes, it takes quite a few minutes before all services are up and running. This can lead to confession. So do not hesitate to launch a second scan. Everything (almost) is permitted here anyway in this test LAB._**
 
-According to the information, in the questions whe have, we know it's about the user `molly`. Luckily we have this information or it would have been a real nightmare.
+So I booted up that virtual machine. And like requested I browsed to that web server which present a login screen.
+
+![alt text](images/THM_writeup_hydra_003.png "Webserver login Screenshot")
+
+According to the information, in the questions whe have, we know it's about the user `molly`. Luckily we have this information, or it would have been a real nightmare.
+
+## Wappalyzer
 
 As our challenge is about a webserver APP. We need to work on our Information Gathering about that Web App.
 
-Take for example a look to the `Firefox Wappalyzer` Add-on. This can give us information about what this website use. This is completely optional and even useless in this case, but just to feed our curiosity. Let's install and use this.
+Take for example a look to the `Firefox` [Wappalyzer Add-on](https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/). This can give us information about what this website use. This is completely optional and even useless in this case, but just to feed our curiosity. Let's install and use this.
 
 ![alt text](images/THM_writeup_hydra_wappalyzer_001.png "Wappalyzer Screenshot")
 
@@ -137,11 +163,13 @@ After installation, just click that `Wappalyer` icon and your get some informati
 
 ![alt text](images/THM_writeup_hydra_wappalyzer_002.png "Wappalyzer Screenshot")
 
+## FoxyProxy and BurpSuite
+
 We also want to know how this user and password input fields are used. Also, we want to know what error message the web app gives us when the log in attempt fails. This is very crucial as we don't own super cow power and we have no clue how things work behind the scenes. Our job is to do research, so let's do it!
 
 For this we can use 2 interesting tools. `FoxyProxy` and `Burp Suite`.
 
-The `FoxyProxy` is a little `Firefox` Add-on to manage different proxy settings. This to avoid to each time to go to the browser settings, set manually the proxy settings during our experimentation's and to finally, set back to the defaults when we're done. So let's make use of `FoxyProxy` so that we can configure it to send the data to the `Burp Suite`, which will give us information on what's hopping behind the scene. Hold on, it's abstract stuff right now, but things will get clear in a few. So let's start by installing the `FoxyProxy` addon.
+The [FoxyProxy](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/) is a little `Firefox` Add-on to manage different proxy settings. This to avoid to each time to go to the browser settings, set manually the proxy settings during our experimentation's and to finally, set back to the defaults when we're done. So let's make use of `FoxyProxy` so that we can configure it to send the data to the `Burp Suite`, which will give us information on what's hopping behind the scene. Hold on, it's abstract stuff right now, but things will get clear in a few. So let's start by installing the `FoxyProxy` addon.
 
 
 ![alt text](images/THM_writeup_hydra_foxyproxy_001.png "Foxyproxy Screenshot")
@@ -204,6 +232,8 @@ Our Information Gathering is over. We know enough for now, and we are ready for 
 
 **Don't forget to turn off the `interception` in `Blurp suite` and the `ProxyFoxy` settings  in `Firefox` ;-)**
 
+## Brute forcing with Hydra
+
 As we are going to use `hydra`. We need a word list with common used passwords to do our dictionary attack. So I will use that famous `rockyou.txt` words (passwords) list that is provided by default in a `Kali` installation. You should read the story of this `rockyou.txt` file here which is very interesting. This really rock!: https://en.wikipedia.org/wiki/RockYou 
 
 So first thing I want to do is extract that damn compressed words list file `/usr/share/wordlists/rockyou.txt.gz` as using this word list like is, will give us troubles with our tools. Please, Kali, why did you do this? :-D To save 85MB? To save the planet? :-P
@@ -213,6 +243,8 @@ cd /usr/share/wordlists/
 # Preserver the original file with -k, I do not know why, to save the planet?
 gunzip -k rockyou.txt.gz
 ```
+
+### Brute forcing the web app
 
 So now we are ready to bruteforce attack that web form with our username and wordlist:
 
@@ -232,7 +264,9 @@ These guys behind TryHackMe are incredible! :-D
 
 So here we go, first step is done!
 
-We can now bruteforce the ssh server! Yes Baby!!!
+### Brute forcing the SSH server
+
+We can now bruteforce the `ssh` server! Yes Baby!!!
 
 ```commandline
 hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.10.180.225 ssh -V -I
