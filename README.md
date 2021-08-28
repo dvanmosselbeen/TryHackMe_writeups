@@ -18,7 +18,7 @@ Note: you can also look at these documents here through the `GitHub Pages`, <htt
 
 | Room Name | Description | Tools Used |
 |---|---|---|
-| [ColddBox: Easy](colddboxeasy/README.md) | An easy level machine with multiple ways to escalate privileges. |   |
+| [ColddBox: Easy](colddboxeasy/README.md) | An easy level machine with multiple ways to escalate privileges. | `nmap`, `gobuster`, `wpscan`, `Burp Suite`, `hydra` |
 | [Mr Robot](mrrobot/README.md) | Based on the Mr. Robot show, can you root this box? | `nmap`, `gobuster`, `nikto`, `Burp Suite`, `hydra` |
 | [Chocolate Factory](chocolatefactory/README.md) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
 | [Lazy Admin](laszy-admin) | Easy linux machine to practice your skills. | `nmap`, `gobuster`, `webshell`, `nc` |
@@ -86,6 +86,6 @@ cat  /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt >> /tmp/gobust
 #uniq /tmp/gobusted.txt | sort /tmp/gobusted.txt > ~/tools/gobusted2.txt
 
 # See man uniq or https://www.howtoforge.com/linux-uniq-command/
-# This is good, but no, still not working as expected!!!!!!!!!
+# This is good, but no, still not working as expected, still duplcated items!
 uniq /tmp/gobusted.txt ~/tools/gobusted.txt
 ````
