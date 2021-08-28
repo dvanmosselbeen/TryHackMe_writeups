@@ -130,6 +130,10 @@ Took a look on the website with the web browser and this was very cool, actually
 
 ![alt text](files/webserver_02.png "Web Server")
 
+I'm joking, for those who don't follow, you can check out the video here:
+
+[![Youtube video](https://img.youtube.com/vi/TKP7MENz1c4/0.jpg)](https://www.youtube.com/watch?v=TKP7MENz1c4)
+
 So we can give in a few commands like shown on the screenshot. Each command redirect to some other page, with some lecture or some video. Very well done! when closing that, you will be redirected to the command line.
 
 ![alt text](files/webserver_03.png "Web Server")
