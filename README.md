@@ -12,10 +12,13 @@ Here's a link to my profile on TryHackMe:
 
 [![TryHackMe Profile](itchy.png)](https://tryhackme.com/p/itchy)
 
+Note: you can also look at these documents here through the `GitHub Pages`, <https://dvanmosselbeen.github.io/TryHackMe_writeups/>. Which looks slightly better. But no navigation bar.
+
 ## TryHackMe writeups
 
 | Room Name | Description | Tools Used |
 |---|---|---|
+| [Mr Robot](mrrobot/README.md) | Based on the Mr. Robot show, can you root this box? | `nmap`, `gobuster`, `nikto`, `Burp Suite`, `hydra` |
 | [Chocolate Factory](chocolatefactory/README.md) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
 | [Lazy Admin](laszy-admin) | Easy linux machine to practice your skills. | `nmap`, `gobuster`, `webshell`, `nc` |
 | [Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) | You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker! | `nmap`, `hydra` |
@@ -51,3 +54,37 @@ $ nmcli connection edit <CONNECTION_NNAME>
 ```
 
 These changes are persistent.
+
+### TODO
+
+#### Make gobuster go even slower !
+
+Actually make it 5x time faster or more if you don't mind that we can use the `-t 50` parameter on `gobuster`.
+
+````commandline
+$ gobuster help dir | grep -e "-t"
+...
+  -t, --threads int       Number of concurrent threads (default 10)
+````
+
+Merge the wordlist files:
+
+Found this very interesting to do, for room https://tryhackme.com/room/wgelctf for example. As i mainly use the `dirbuster` wordlist, did not found the required files in first instance.
+
+- `/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt`
+- `/usr/share/wordlists/dirb/common.txt`
+
+As for example the common.txt would find out a folder `.ssh` which is extreme important. However, common.txt is also too common and does not find a lot of things.
+
+Quick and dirty fix for this:
+
+````commandline
+cat /usr/share/wordlists/dirb/common.txt >> /tmp/gobusted.txt
+cat  /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt >> /tmp/gobusted.txt
+# Then removed dupplicates, sort it and go home. Bad idea to sort, it feels slower at the start
+#uniq /tmp/gobusted.txt | sort /tmp/gobusted.txt > ~/tools/gobusted2.txt
+
+# See man uniq or https://www.howtoforge.com/linux-uniq-command/
+# This is good, but no, still not working as expected!!!!!!!!!
+uniq /tmp/gobusted.txt ~/tools/gobusted.txt
+````
