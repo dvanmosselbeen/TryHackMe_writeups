@@ -18,6 +18,7 @@ Note: you can also look at these documents here through the `GitHub Pages`, <htt
 
 | Room Name | Description | Tools Used |
 |---|---|---|
+| [Blog](blog#README.md) | Billy Joel made a Wordpress blog! | `nmap`, `wpscan`, `msfconsole`, `strings`,`ltrace` |
 | [ColddBox: Easy](colddboxeasy/README.md) | An easy level machine with multiple ways to escalate privileges. | `nmap`, `gobuster`, `wpscan`, `Burp Suite`, `hydra` |
 | [Mr Robot](mrrobot/README.md) | Based on the Mr. Robot show, can you root this box? | `nmap`, `gobuster`, `nikto`, `Burp Suite`, `hydra` |
 | [Chocolate Factory](chocolatefactory/README.md) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
