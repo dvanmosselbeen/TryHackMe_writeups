@@ -18,6 +18,7 @@ Note: you can also look at these documents here through the `GitHub Pages`, <htt
 
 | Room Name | Description | Tools Used |
 |---|---|---|
+| [Daily Bugle](dailybugle#README.md) | Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage of yum. | `nmap`, `gobuster`, `Joomla`, `joomscan`, `joomblah`, `hashcat`, `john`, `php-reverse-shell.php`, `nc` |
 | [NAX](nax#README.md) | Identify the critical security flaw in the most powerful and trusted network monitoring software on the market, that allows an user authenticated execute remote code execution. [CVE-2019-15949](https://nvd.nist.gov/vuln/detail/CVE-2019-15949) | `nmap`, `exiftool`, `gobuster`,  `msfconsole` |
 | [Blog](blog#README.md) | Billy Joel made a Wordpress blog! | `nmap`, `wpscan`, `msfconsole`, `strings`,`ltrace` |
 | [ColddBox: Easy](colddboxeasy/README.md) | An easy level machine with multiple ways to escalate privileges. | `nmap`, `gobuster`, `wpscan`, `Burp Suite`, `hydra` |
