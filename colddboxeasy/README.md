@@ -262,7 +262,7 @@ This took ages for some reasons I do not know. 16 attempts per minutes. This go 
 
 ## Brute forcing with WPScan
 
-same principe, as we have a list of potential usernames, let's make use of it.
+Same principe, as we have a list of potential usernames, let's make use of it.
 
 ````commandline
 wpscan --url http://$IP_TARGET -U usernames.txt -P /usr/share/wordlists/rockyou.txt
@@ -290,6 +290,10 @@ After something like 15 minutes, `wpscan` found the password for user *****. So 
 
 Scan Aborted: Canceled by User
 ````
+
+**GOLDEN TIP:**
+
+In fact, what I have done is very useless to bruteforce the `WordPress` site for different users. Instead of brute forcing with a user list, I should have enumerated this site, manually or with the `-e` on `wpscan` (check out the `wpscan --help`), to find the different users. `WordPress` websites use authors for the posts. And that are the actual users on that website. Could have saved time.
 
 ## Installing a reverse shell in WordPress
 
