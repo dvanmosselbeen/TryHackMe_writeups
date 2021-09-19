@@ -1,8 +1,9 @@
 # Bounty Hunter (Cowboy Hacker)
 
-You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
+- TryHackMe Room: <https://tryhackme.com/room/cowboyhacker>
+- OS: `Linux (Ubuntu)`
 
-TryHackMe Room: <https://tryhackme.com/room/cowboyhacker>
+You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker!
 
 ![alt text](images/crew.jpg "Crew")
 

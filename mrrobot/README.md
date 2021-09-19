@@ -1,6 +1,7 @@
-# # Try Hack Me Writeup - Mr Robot
+# Try Hack Me Writeup - Mr Robot
 
-TryHackMe room: <https://tryhackme.com/room/mrrobot>
+- TryHackMe room: <https://tryhackme.com/room/mrrobot>
+- OS: `Linux`
 
 Based on the Mr. Robot show, can you root this box?
 
@@ -50,11 +51,13 @@ $ tmux
 
 ## Tools Used
 
-- nmap
-- gobuster
-- nikto
-- Burp Suite
-- hydra
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `gobuster` | Web server enumeration |
+| `nikto` | Advanced webserver enumeration |
+| `Burp Suite` | Web server enumeration `/` Intercept web traffic |
+| `hydra` | To bruteforce login the wordpress login |
 
 ## Enumeration of ports and services
 

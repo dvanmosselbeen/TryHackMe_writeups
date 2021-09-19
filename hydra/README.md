@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - Hydra
 
-THM Room is here: <https://tryhackme.com/room/hydra>
+- TryHackMe room: <https://tryhackme.com/room/hydra>
+- OS: `N/A`
 
 ![alt text](images/writeup-image.png "Hydra commands Screenshot")
 

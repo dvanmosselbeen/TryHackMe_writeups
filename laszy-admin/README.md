@@ -1,8 +1,9 @@
 # Try Hack Me Writeup - Lazy Admin
 
-Easy linux machine to practice your skills
+- TryHackMe room: <https://tryhackme.com/room/lazyadmin>
+- OS: `Linux (Ubuntu)`
 
-TryHackMe room: <https://tryhackme.com/room/lazyadmin>
+Easy linux machine to practice your skills
 
 ![alt text](images/writeup-image.png "Web Server")
 

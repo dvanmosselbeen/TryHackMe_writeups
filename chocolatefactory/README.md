@@ -1,8 +1,8 @@
 # Try Hack Me Writeup - Chocolate Factory
-  
-A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory!
+- TryHackMe room: <https://tryhackme.com/room/chocolatefactory>
+- OS: `Linux (Ubuntu) `
 
-TryHackMeRoom here: <https://tryhackme.com/room/chocolatefactory>
+A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory!
 
 ![alt text](files/writeup-image.jpeg "Writeup Image")
 

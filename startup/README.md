@@ -1,8 +1,9 @@
 # TryHackMe Writeup - Startup
 
-Abuse traditional vulnerabilities via untraditional means.
+- TryHackMe room: <https://tryhackme.com/room/startup>
+- OS: `Linux (Ubuntu)`
 
-TryHackMe room: <https://tryhackme.com/room/startup>
+Abuse traditional vulnerabilities via untraditional means.
 
 This is a detailed writeup, with a few bonus sections and for some sections different techniques to achieve the same goal. This one is really not complicated but request to do some researches on the target machine. Then you probably also need to dig deeper in what the opportunities are. Really a nice one!
 

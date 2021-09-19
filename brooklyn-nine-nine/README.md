@@ -1,8 +1,9 @@
 # Try Hack Me Writeup - Brooklyn Nine Nine
 
-This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.
+- TryHackMe room: <https://tryhackme.com/room/brooklynninenine>
+- OS: `Linux (Ubuntu)`
 
-TryHackMe room: <https://tryhackme.com/room/brooklynninenine>
+This room is aimed for beginner level hackers but anyone can try to hack this box. There are two main intended ways to root the box.
 
 ![alt text](images/brooklyn99.jpg "The Crew")
 

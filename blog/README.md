@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - Blog
 
-TryHackMe room: <https://tryhackme.com/room/blog>
+- TryHackMe room: <https://tryhackme.com/room/blog>
+- OS: `Linux (Ubuntu)`
 
 Billy Joel made a Wordpress blog!
 
@@ -60,11 +61,13 @@ $ tmux
 
 ## Tools Used
 
-- nmap
-- wpscan
-- msfconsole
-- strings
-- ltrace
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `wpscan` | To brute force the WordPress login |
+| `msfconsole` | To exploit WordPress |
+| `strings` | To examine files |
+| `ltrace` | To trace library calls |
 
 ## Enumeration of ports and services
 
@@ -140,7 +143,7 @@ wpscan -U usernames.txt -P /usr/share/wordlists/rockyou.txt --password-attack wp
 
 After a few minutes, got the `WordPress` password for the user `[REDACTED]`, but this user seems to be just a user, without admin rights. Shoot, no fancy web shell today! We need super cow power to get something done.
 
-Have redone the same user attack with `wpscan` on the other user `[REDACTED]`, but after a bit more than `10.000` different passwords attempts with the `rockyou.txt` file, I have given it up. For CTFs, it usually does not last that long. Also ran a `gobuster` enumeration, but that computer showed me his middle finger in the middle of the way. Or maybe he had no time to do that. He passed away for sure without banning me. That virtual Ubuntu computer seems not to be very stable. So fired up a new one. So if I forgot to change IPs in this writeup, you know why. So started over again some parts. At the same time the computer was thinking hard about passwords, I was looking around and found maybe something interesting in the [exploit-db](https://www.exploit-db.com/) with reference [EDB-ID46662](https://www.exploit-db.com/exploits/46662),about an interesting vulnerability [CVE-2019-8943](https://nvd.nist.gov/vuln/detail/CVE-2019-8943), [CVE-2019-8942](https://nvd.nist.gov/vuln/detail/CVE-2019-8942).
+Have redone the same user attack with `wpscan` on the other user `[REDACTED]`, but after a bit more than `10.000` different passwords attempts with the `rockyou.txt` file, I have given it up. For CTFs, it usually does not last that long. Also ran a `gobuster` enumeration, but that computer showed me his middle finger in the middle of the way. Or maybe he had no time to do that. He passed away for sure without banning me. That virtual Ubuntu computer seems not to be very stable. So fired up a new one. So if I forgot to change IPs in this writeup, you know why. So started over again some parts. At the same time the computer was thinking hard about passwords, I was looking around and found maybe something interesting in the [exploit-db](https://www.exploit-db.com/) with reference [EDB-ID46662](https://www.exploit-db.com/exploits/46662), about an interesting vulnerability [CVE-2019-8943](https://nvd.nist.gov/vuln/detail/CVE-2019-8943), [CVE-2019-8942](https://nvd.nist.gov/vuln/detail/CVE-2019-8942).
 
 For this we need to use `msfconsole`. So let's go and use that module. We need to set the different variables; `USERNAME`, `PASSWORD`, `RHOSTS`, `LHOST` and then just fire the exploit and we get a remote meterpreter shell.
 

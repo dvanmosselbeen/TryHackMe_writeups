@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - Relevant
 
-TryHackMe room: <https://tryhackme.com/room/relevant>
+- TryHackMe room: <https://tryhackme.com/room/relevant>
+- OS: `Windows Server 2008 R2`
 
 Penetration Testing Challenge
 
@@ -74,11 +75,13 @@ $ tmux
 
 ## Tools Used
 
-- nmap
-- gobuster
-- smbclient
-- enum4linux
-- msfvenon
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `gobuster` | Web server enumeration |
+| `smbclient` | To access the files on a the Samba File Server |
+| `enum4linux` | To enumerate a Samba File Server |
+| `msfvenon` | To create an aspx reverse shell file |
 
 ## Enumeration of ports and services
 

@@ -16,26 +16,26 @@ Note: you can also look at these documents here through the `GitHub Pages`, <htt
 
 ## TryHackMe writeups
 
-| Room Name | Description | Tools Used |
-|---|---|---|
-| [Empline](empline/README.md) | Are you good enough to apply for this job? | `nmap`, `gobuster` |
-| [Inclusion](inclusion/README.md) | A beginner level LFI challenge. | `nmap`, `gobuster` |
-| [Relevant](relevant/README.md) | Penetration Testing Challenge. | `nmap`, `gobuster`, `smbclient`, `enum4linux`, `msfvenon` |
-| [Daily Bugle](dailybugle/README.md) | Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage of yum. | `nmap`, `gobuster`, `Joomla`, `joomscan`, `joomblah`, `hashcat`, `john`, `php-reverse-shell.php`, `nc` |
-| [NAX](nax/README.md) | Identify the critical security flaw in the most powerful and trusted network monitoring software on the market, that allows an user authenticated execute remote code execution. [CVE-2019-15949](https://nvd.nist.gov/vuln/detail/CVE-2019-15949) | `nmap`, `exiftool`, `gobuster`,  `msfconsole` |
-| [Blog](blog/README.md) | Billy Joel made a Wordpress blog! | `nmap`, `wpscan`, `msfconsole`, `strings`,`ltrace` |
-| [ColddBox: Easy](colddboxeasy/README.md) | An easy level machine with multiple ways to escalate privileges. | `nmap`, `gobuster`, `wpscan`, `Burp Suite`, `hydra` |
-| [Mr Robot](mrrobot/README.md) | Based on the Mr. Robot show, can you root this box? | `nmap`, `gobuster`, `nikto`, `Burp Suite`, `hydra` |
-| [Chocolate Factory](chocolatefactory/README.md) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
-| [Lazy Admin](laszy-admin/README.md) | Easy linux machine to practice your skills. | `nmap`, `gobuster`, `webshell`, `nc` |
-| [Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) | You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker! | `nmap`, `hydra` |
-| [Startup](startup/README.md) | Abuse traditional vulnerabilities via untraditional means. | `nmap`, `gobuster`, `ftp`, `nc`, `curl`, `python`, `wireshark`, `strings`, `pspy`, `linpeas` |
-| [Blue](blue/README.md) | Hacking: Enumerating the Eternal blue vulnerability [CVE-2017-0143](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143) with `nmap` and making (bad) use of it with `metasploit`. Finally, dumping and cracking the password hash of a user. | `nmap`, `metasploit`, `john` |
-| [Agent Sudo](agent-sudo/README.md) | Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation. | `nmap`, `gobuster`, `Burp Suite`, `FoxyProxy`, `User-Agent Switcher and Manager`, `hydra`, `steghide`, `binwalk`, `john`, `zip2john` |
-| [Wireshark 101](wireshark-101/README.md) | The Wireshark 101 Writeup. | `wireshark` |
-| [Basic Pentesting](basic_pentesting/README.md) | Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.  | `nmap`, `gobuster`, `enum4linux`, `hydra`, `linpeas`, `john` |
-| [Hydra](hydra/README.md) | Hydra is the ultimate tool for online password attacks. | `hydra` |
-| [Brooklyn Nine Nine](brooklyn-nine-nine/README.md) | Hack that box! | `nmap`, `ftp`, `hydra`, `linpeas` |
+| Room Name | OS | Description | Tools Used |
+|:---:|:---:|---|---|
+| [Empline](empline/README.md) | Linux (Ubuntu) | Are you good enough to apply for this job? | `nmap`, `gobuster` |
+| [Inclusion](inclusion/README.md) | Linux (Ubuntu) | A beginner level LFI challenge. | `nmap`, `gobuster` |
+| [Relevant](relevant/README.md) | Windows Server 2008 R2 | Penetration Testing Challenge. | `nmap`, `gobuster`, `smbclient`, `enum4linux`, `msfvenon` |
+| [Daily Bugle](dailybugle/README.md) | Linux (CentOS) | Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage of yum. | `nmap`, `gobuster`, `Joomla`, `joomscan`, `joomblah`, `hashcat`, `john`, `php-reverse-shell.php`, `nc` |
+| [NAX](nax/README.md) | Linux (Ubuntu) | Identify the critical security flaw in the most powerful and trusted network monitoring software on the market, that allows an user authenticated execute remote code execution. [CVE-2019-15949](https://nvd.nist.gov/vuln/detail/CVE-2019-15949) | `nmap`, `exiftool`, `gobuster`,  `msfconsole` |
+| [Blog](blog/README.md) | Linux (Ubuntu) | Billy Joel made a Wordpress blog! | `nmap`, `wpscan`, `msfconsole`, `strings`,`ltrace` |
+| [ColddBox: Easy](colddboxeasy/README.md) | Linux (Ubuntu) | An easy level machine with multiple ways to escalate privileges. | `nmap`, `gobuster`, `wpscan`, `Burp Suite`, `hydra` |
+| [Mr Robot](mrrobot/README.md) | Linux | Based on the Mr. Robot show, can you root this box? | `nmap`, `gobuster`, `nikto`, `Burp Suite`, `hydra` |
+| [Chocolate Factory](chocolatefactory/README.md) | Linux (Ubuntu) | A Charlie And The Chocolate Factory themed room, revisit Willy Wonka's chocolate factory! | `nmap`, `exif`, `exiftool`, `strings`, `steghide` |
+| [Lazy Admin](laszy-admin/README.md) | Linux (Ubuntu) | Easy linux machine to practice your skills. | `nmap`, `gobuster`, `webshell`, `nc` |
+| [Bounty Hunter (Cowboy Hacker)](bounty-hunter/README.md) | Linux (Ubuntu) | You talked a big game about being the most elite hacker in the solar system. Prove it and claim your right to the status of Elite Bounty Hacker! | `nmap`, `hydra` |
+| [Startup](startup/README.md) | Linux (Ubuntu) | Abuse traditional vulnerabilities via untraditional means. | `nmap`, `gobuster`, `ftp`, `nc`, `curl`, `python`, `wireshark`, `strings`, `pspy`, `linpeas` |
+| [Blue](blue/README.md) | Windows 10| Hacking: Enumerating the Eternal blue vulnerability [CVE-2017-0143](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143) with `nmap` and making (bad) use of it with `metasploit`. Finally, dumping and cracking the password hash of a user. | `nmap`, `metasploit`, `john` |
+| [Agent Sudo](agent-sudo/README.md) | Linux (Ubuntu) | Hacking: Enumerating a webserver, faking user-agent of web browser, steganography, brute-forcing ftp server, privilege escalation. | `nmap`, `gobuster`, `Burp Suite`, `FoxyProxy`, `User-Agent Switcher and Manager`, `hydra`, `steghide`, `binwalk`, `john`, `zip2john` |
+| [Wireshark 101](wireshark-101/README.md) | N/A | The Wireshark 101 Writeup. | `wireshark` |
+| [Basic Pentesting](basic_pentesting/README.md) | Linux (Ubuntu) | Various penetration / cracking. Like brute forcing, hash cracking, service enumeration, Linux enumeration.  | `nmap`, `gobuster`, `enum4linux`, `hydra`, `linpeas`, `john` |
+| [Hydra](hydra/README.md) | N/A | Hydra is the ultimate tool for online password attacks. | `hydra` |
+| [Brooklyn Nine Nine](brooklyn-nine-nine/README.md) | Linux (Ubuntu) | Hack that box! | `nmap`, `ftp`, `hydra`, `linpeas` |
 
 ## Extra Notes
 

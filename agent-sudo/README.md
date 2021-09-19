@@ -1,8 +1,9 @@
 # Try Hack Me Writeup - Agent Sudo
 
-You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.
+- TryHackMe room: <https://tryhackme.com/room/agentsudoctf>
+- OS: `Linux (Ubuntu)`
 
-TryHackMe room: <https://tryhackme.com/room/agentsudoctf>
+You found a secret server located under the deep sea. Your task is to hack inside the server and reveal the truth.
 
 **WARNING: I stripped out the answers, passwords, flags and co. This writeup is pretty detailed. By following and doing the steps described here yourself you will get them all. The goal is to learn more about it, even if you get stuck at some point. Enjoy!**
 

@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - ColddBox: Easy
 
-TryHackMe room: <https://tryhackme.com/room/colddboxeasy>
+- TryHackMe room: <https://tryhackme.com/room/colddboxeasy>
+- OS: `Linux (Ubuntu)`
 
 An easy level machine with multiple ways to escalate privileges.
 
@@ -50,11 +51,13 @@ $ tmux
 
 ## Tools Used
 
-- `nmap`
-- `gobuster`
-- `wpscan`
-- `Burp Suite`
-- `hydra`
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `gobuster` | Web server enumeration |
+| `wpscan` | Web server enumeration |
+| `Burp Suite` | Web server enumeration |
+| `hydra` | To bruteforce the WordPress login form |
 
 ## Enumeration of ports and services
 

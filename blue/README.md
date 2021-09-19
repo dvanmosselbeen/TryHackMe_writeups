@@ -1,8 +1,9 @@
 # Try Hack Me Writeup - Blue
 
-Deploy & hack into a Windows machine, leveraging common misconfigurations issues.
+- TryHackMe room: <https://tryhackme.com/room/blue>
+- OS: `Windows 10`
 
-Room: https://tryhackme.com/room/blue
+Deploy & hack into a Windows machine, leveraging common misconfigurations issues.
 
 This is a complete and full writeup of the Blue room on Try Hack Me. This writeup has been made on August 2021. The steps in the walkthrough video available in this room are slightly different as software updates made in sort of these little procedure changes. This writeup reflect the curent state.
 

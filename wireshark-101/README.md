@@ -1,6 +1,9 @@
 # Wireshark 101
 
-This document is  a full writeup: The learn material + question + answers + bonus of the Wireshark room of the so amazing TryHackMe website: https://tryhackme.com/room/wireshark
+- TryHackMe room: <https://tryhackme.com/room/wireshark>
+- OS: `N/A`
+
+This document is  a full writeup: The learn material + question + answers + bonus of the amazing Wireshark room.
 
 Have added some stuff, but still all credits goes to the [TryHackMe](https://tryhackme.com/) community.
 

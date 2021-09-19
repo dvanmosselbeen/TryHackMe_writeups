@@ -1,6 +1,7 @@
 # Inclusion
 
-TryHackMe room: <https://tryhackme.com/room/inclusion>
+- TryHackMe room: <https://tryhackme.com/room/inclusion>
+- OS: `Linux (Ubuntu)`
 
 A beginner level LFI challenge.
 
@@ -29,8 +30,10 @@ $ tmux
 
 ## Tools Used
 
-- nmap
-- gobuster
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `gobuster` | Web server enumeration |
 
 ## Enumeration
 

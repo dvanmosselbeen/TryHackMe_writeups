@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - Daily Bugle
 
-TryHackMe room: <https://tryhackme.com/room/dailybugle>
+- TryHackMe room: <https://tryhackme.com/room/dailybugle>
+- OS: `Linux (CentOS)`
 
 Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage of yum.
 

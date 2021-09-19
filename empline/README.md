@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - Empline
 
-TryHackMe room: <https://tryhackme.com/room/empline>
+- TryHackMe room: <https://tryhackme.com/room/empline>
+- OS: `Linux (Ubuntu)`
 
 Are you good enough to apply for this job?
 
@@ -34,9 +35,11 @@ tmux
 
 ## Tools Used
 
-- nmap
-- gobuster
-- MySQL
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `gobuster` | Web server enumeration |
+| `MySQL` | To dump user credentials |
 
 ## Enumeration of ports and services
 

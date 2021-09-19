@@ -1,6 +1,7 @@
 # Try Hack Me Writeup - NAX
 
-TryHackMe room: <https://tryhackme.com/room/nax>
+- TryHackMe room: <https://tryhackme.com/room/nax>
+- OS: `Linux (Ubuntu)`
 
 Identify the critical security flaw in the most powerful and trusted network monitoring software on the market, that allows an user authenticated execute remote code execution.
 
@@ -45,11 +46,14 @@ $ tmux
 
 ## Tools Used
 
-- nmap
-- Wikipedia & Google (yeah, let's name them for once!)
-- exiftool
-- gobuster
-- msfconsole
+| Name | Usage |
+|---|---|
+| `nmap` | Port & services enumeration |
+| `Internet` | Wikipedia & Google (yeah, let's name them for once!) |
+| `exiftool` | To examine image files. |
+| `strings` | To examine files |
+| `gobuster` | Web server enumeration |
+| `msfconsole` | To exploit Nagios |
 
 ## Enumeration of ports and services
 
